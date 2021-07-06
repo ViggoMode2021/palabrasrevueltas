@@ -1,0 +1,55 @@
+
+from tkinter import *
+from random import choice
+from random import shuffle
+
+root = Tk()
+root.title("Juego de palabras revueltas")
+root.geometry("600x400")
+
+my_label = Label(root, text=" ", font=("Helvetica", 48))
+my_label.pack(pady=20)
+
+def shuffler():
+    palabras = ['comer', 'bailar', 'hablar', 'leer', 'ver', 'practicar', 'jugar', 'montar', 'tocar', 'escribir']
+
+    global word
+    word = choice(palabras)
+
+    my_label.config(text=word)
+
+    break_apart_word = list(word)
+    shuffle(break_apart_word)
+    print(break_apart_word)
+
+    global shuffled_word
+    shuffled_word = ' '
+    for letter in break_apart_word:
+        shuffled_word += letter
+
+    my_label.config(text=shuffled_word)
+
+def answer():
+    if word == entry_answer.get():
+        answer_label.config(text="¡Correcto!")
+    else:
+        answer_label.config(text="¡Incorrecto!")
+
+entry_answer = Entry(root, font=("Helvetica", 24))
+entry_answer.pack(pady=20)
+
+
+answer_label= Label(root, text='', font=("Helvetica, 18"))
+answer_label.pack(pady=20)
+
+button_frame = Frame(root)
+button_frame.pack(pady=20)
+
+my_button = Button(button_frame, text="Selecciona otra palabra", command = shuffler)
+my_button.grid(row=10, column=0, padx=10)
+
+answer_button = Button(button_frame, text="entrar", command=answer)
+answer_button.grid(row=10, column=10, padx=15)
+
+shuffler()
+root.mainloop()
